@@ -3,6 +3,7 @@ package com.integration.rest.controller.config.rest;
 import com.integration.rest.controller.config.jwt.AuthTokenFilter;
 import com.integration.rest.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
@@ -22,11 +23,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class CustomSecurityConfig {
     @Autowired
     private AuthTokenFilter authTokenFilter;
-
+    @Autowired
     UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEcnoder());
+    }
+
     @Bean
-    public AuthenticationManager authManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean

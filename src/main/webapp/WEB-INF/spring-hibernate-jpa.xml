@@ -2,9 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 	http://www.springframework.org/schema/data/jpa
+	http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+
+>
 
 	<!-- to activate annotations in beans already registered in the ApplicationContext -->
 	<context:annotation-config />
@@ -14,13 +18,14 @@
 
 <!--	&lt;!&ndash; turn on spring transaction annotation &ndash;&gt;-->
 <!--	<tx:annotation-driven transaction-manager="transactionManager" />-->
-<!--	&lt;!&ndash; Transaction Manager for sessionFactory&ndash;&gt;-->
+<!--	-->
+<!--	&lt;!&ndash; Transaction Manager for sessionFactory using springframework.orm.hibernate4&ndash;&gt;-->
 <!--	<bean id="transactionManager"-->
 <!--		class="org.springframework.orm.hibernate4.HibernateTransactionManager">-->
 <!--		<property name="sessionFactory" ref="sessionFactory" />-->
 <!--	</bean>-->
 
-<!--	&lt;!&ndash; dataSource configuration &ndash;&gt;-->
+<!--	&lt;!&ndash; dataSource configuration springframework jdbc &ndash;&gt;-->
 <!--	<bean id="dataSource"-->
 <!--		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
 <!--		<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
@@ -29,7 +34,7 @@
 <!--		<property name="password" value="Safeheaven97$" />-->
 <!--	</bean>-->
 
-<!--	&lt;!&ndash; Session Factory &ndash;&gt;-->
+<!--	&lt;!&ndash; Session Factory springframework.orm.hibernate4 &ndash;&gt;-->
 <!--	<bean id="sessionFactory"-->
 <!--		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">-->
 <!--		<property name="dataSource" ref="dataSource" />-->
@@ -48,7 +53,7 @@
 <!--	</bean>-->
 
 
-	<!-- JPA Config -->
+	<!-- JPA XML Configuration  -->
 	<bean id="JpaDataSources"
 		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
@@ -56,6 +61,7 @@
 		<property name="username" value="root" />
 		<property name="password" value="Safeheaven97$" />
 	</bean>
+	<!-- JPA EntityManager -->
 	<bean id="myEmf"
 		  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="JpaDataSources" />
@@ -70,10 +76,28 @@
 			</props>
 		</property>
 	</bean>
-
+	<!-- JPA transactionManager using springframework.orm.jpa 4.3.0.RELEASE  -->
 	<bean id="JpatransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="myEmf" />
 	</bean>
 	<tx:annotation-driven />
+
 	<bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean name="userDetailsService" class="com.integration.rest.security.UserDetailsServiceImpl"/>
+
+	<!-- EnableJPA repository using XML Configuration  -->
+	<jpa:repositories base-package="com.integration.rest.repository"
+					  entity-manager-factory-ref="myEmf"
+					  transaction-manager-ref="JpatransactionManager"/>
+
+<!--	<bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
+<!--	<bean id="authenticationManager">-->
+<!--		<constructor-arg>-->
+<!--			<bean class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">-->
+<!--				<property name="userDetailsService" ref="userDetailsService"/>-->
+<!--				<property name="passwordEncoder" ref="bcryptEncoder"/>-->
+<!--			</bean>-->
+<!--		</constructor-arg>-->
+<!--	</bean>-->
 </beans>

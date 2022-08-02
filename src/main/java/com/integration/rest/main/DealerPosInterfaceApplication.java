@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScans;
 import com.integration.rest.controller.DealerPosInterfaceController;
 import com.integration.rest.service.DealerPosInterfaceServiceImpl;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @ComponentScans(value = {@ComponentScan(basePackageClasses = DealerPosInterfaceController.class),
@@ -22,9 +23,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 						@ComponentScan(basePackageClasses = UserDetailsServiceImpl.class),
 
 })
-@EnableJpaRepositories(basePackages = "com.integration.rest.repository",entityManagerFactoryRef = "myEmf",transactionManagerRef = "JpatransactionManager")
+//EnableJPA repository from Java code base level
+//@EnableJpaRepositories(basePackages = "com.integration.rest.repository",entityManagerFactoryRef = "myEmf",transactionManagerRef = "JpatransactionManager")
 @EntityScan(basePackages = "com.integration.rest.model")
 @EnableAutoConfiguration
+@EnableTransactionManagement
 public class DealerPosInterfaceApplication {
 
 	public static void main(String[] args) {

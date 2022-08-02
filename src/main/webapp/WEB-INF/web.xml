@@ -11,7 +11,10 @@
 	</listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/dispatcher-servlet.xml,classpath:META-INF/cxf/cxf.xml,/WEB-INF/spring-hibernate-jax-ws.xml</param-value>
+        <param-value>
+            /WEB-INF/dispatcher-servlet.xml,
+            classpath:META-INF/cxf/cxf.xml,
+            /WEB-INF/spring-hibernate-jpa.xml</param-value>
     </context-param>
 
 <!--    springSecurityFilterChain with URL pattern-->
@@ -46,5 +49,5 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-    
+
 </web-app>

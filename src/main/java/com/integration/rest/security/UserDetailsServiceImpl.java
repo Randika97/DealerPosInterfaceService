@@ -11,11 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("userService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-   UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

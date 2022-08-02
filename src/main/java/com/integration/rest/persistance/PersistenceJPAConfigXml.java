@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 // @Configuration
 @EnableTransactionManagement
 @ComponentScan({ "com.intergration.rest" })
-@ImportResource({ "classpath:spring-hibernate-jax-ws.xml" })
+@ImportResource({ "classpath:spring-hibernate-jpa.xml" })
 public class PersistenceJPAConfigXml {
 
     public PersistenceJPAConfigXml() {
