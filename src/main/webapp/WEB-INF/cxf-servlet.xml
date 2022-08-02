@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://cxf.apache.org/jaxws
+						http://cxf.apache.org/schemas/jaxws.xsd
+						http://cxf.apache.org/jaxrs
+						http://cxf.apache.org/schemas/jaxrs.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.integration.rest.soap.DealerPosInterfaceServiceSOAPBindingImpl
+    									  com.integration.rest.service.DealerPosInterfaceServiceImpl
+    									  com.integration.rest.jaxrs.DealerPosInterfaceJaxRs"/>
+	
+	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+    
+	<jaxws:endpoint id="DealerPosInterfaceService"
+		implementor="com.integration.rest.soap.DealerPosInterfaceServiceSOAPBindingImpl"
+		wsdlLocation="classpath:wsdl/DealerPosInterface.wsdl"
+		address="/ws/dealerPosInterface">
+
+		<jaxws:features>
+			<bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="UsernameToken" /> <!-- UsernameToken Timestamp -->
+						<entry key="passwordType" value="PasswordText" /> <!-- PasswordDigest -->
+						<entry key="passwordCallbackRef" value-ref="passwordCallback" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	<bean id="passwordCallback"
+		  class="com.integration.rest.controller.config.soap.AuthenticationCallbackHandler" />
+	<jaxrs:server id="customerService" address="/rs/">
+		<jaxrs:serviceBeans>
+			<bean class="com.integration.rest.jaxrs.DealerPosInterfaceJaxRs"></bean>
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+            <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+        </jaxrs:providers>
+	</jaxrs:server>
+
+</beans>
