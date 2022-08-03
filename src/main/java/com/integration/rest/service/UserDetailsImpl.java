@@ -1,4 +1,4 @@
-package com.integration.rest.security;
+package com.integration.rest.service;
 
 import java.util.Collection;
 import java.util.List;

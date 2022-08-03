@@ -1,4 +1,4 @@
-package com.integration.rest.controller.config.rest;
+package com.integration.rest.config.rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

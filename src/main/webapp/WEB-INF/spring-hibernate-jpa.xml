@@ -84,7 +84,7 @@
 
 	<bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
-	<bean name="userDetailsService" class="com.integration.rest.security.UserDetailsServiceImpl"/>
+	<bean name="userDetailsService" class="com.integration.rest.service.UserDetailsServiceImpl"/>
 
 	<!-- EnableJPA repository using XML Configuration  -->
 	<jpa:repositories base-package="com.integration.rest.repository"

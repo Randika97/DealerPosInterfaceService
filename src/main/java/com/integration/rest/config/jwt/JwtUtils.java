@@ -1,8 +1,8 @@
-package com.integration.rest.controller.config.jwt;
+package com.integration.rest.config.jwt;
 
 import java.util.Date;
 
-import com.integration.rest.security.UserDetailsImpl;
+import com.integration.rest.service.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -13,7 +13,7 @@ import io.jsonwebtoken.*;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    private String jwtSecret = "bezKoderSecretKey";
+    private String jwtSecret = "developmentEnvironment";
     private int jwtExpirationMs =86400000;
 
     public String generateJwtToken(Authentication authentication) {

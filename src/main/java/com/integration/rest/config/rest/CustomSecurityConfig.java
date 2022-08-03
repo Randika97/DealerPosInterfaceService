@@ -1,7 +1,7 @@
-package com.integration.rest.controller.config.rest;
+package com.integration.rest.config.rest;
 
-import com.integration.rest.controller.config.jwt.AuthTokenFilter;
-import com.integration.rest.security.UserDetailsServiceImpl;
+import com.integration.rest.config.jwt.AuthTokenFilter;
+import com.integration.rest.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -53,7 +53,7 @@ public class CustomSecurityConfig {
         http.cors().and().csrf().disable().authorizeHttpRequests(
                 request -> {
                     try {
-                        request
+                        request.antMatchers("/cxf/ws/dealerPosInterface").permitAll()
                                 .antMatchers("/getDecision/").hasRole("USER")
                                 .antMatchers("/rest/api/auth/**").permitAll()
                                 .antMatchers("/api/test/**").permitAll().anyRequest().authenticated();

@@ -23,7 +23,6 @@
 		implementor="com.integration.rest.soap.DealerPosInterfaceServiceSOAPBindingImpl"
 		wsdlLocation="classpath:wsdl/DealerPosInterface.wsdl"
 		address="/ws/dealerPosInterface">
-
 		<jaxws:features>
 			<bean class="org.apache.cxf.feature.LoggingFeature" />
 		</jaxws:features>
@@ -41,7 +40,7 @@
 		</jaxws:inInterceptors>
 	</jaxws:endpoint>
 	<bean id="passwordCallback"
-		  class="com.integration.rest.controller.config.soap.AuthenticationCallbackHandler" />
+		  class="com.integration.rest.config.soap.AuthenticationCallbackHandler" />
 	<jaxrs:server id="customerService" address="/rs/">
 		<jaxrs:serviceBeans>
 			<bean class="com.integration.rest.jaxrs.DealerPosInterfaceJaxRs"></bean>

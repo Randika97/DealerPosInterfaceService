@@ -1,4 +1,4 @@
-package com.integration.rest.security;
+package com.integration.rest.service;
 
 import com.integration.rest.model.User;
 import com.integration.rest.repository.UserRepository;
@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Service("userService")
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     @Autowired
     UserRepository userRepository;
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,4 +1,4 @@
-package com.integration.rest.controller.config.soap;
+package com.integration.rest.config.soap;
 
 import java.io.IOException;
 

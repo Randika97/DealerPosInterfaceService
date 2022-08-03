@@ -1,4 +1,4 @@
-package com.integration.rest.controller.config.rest;
+package com.integration.rest.config.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
